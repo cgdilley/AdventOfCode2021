@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Iterable, Iterator, TextIO, Optional, Generic, TypeVar
 import os
 from abc import ABC, abstractmethod
@@ -21,6 +23,14 @@ class InputLoader(Iterator[T], Generic[T], ABC):
         except StopIteration:
             self.close()
             raise
+
+    def __enter__(self) -> InputLoader[T]:
+        self.open()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+        return False
 
     def open(self):
         if self.is_open():
