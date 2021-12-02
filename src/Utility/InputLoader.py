@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+from Utility.MovementCommand import MovementCommand
+
 from typing import Iterable, Iterator, TextIO, Optional, Generic, TypeVar
 import os
-from abc import ABC, abstractmethod
 
 T = TypeVar('T')
 
 
-class InputLoader(Iterator[T], Generic[T], ABC):
+class InputLoader(Iterator[T], Generic[T]):
 
     def __init__(self, day: int):
         self.day = day
@@ -55,11 +56,11 @@ class InputLoader(Iterator[T], Generic[T], ABC):
 
 class IntegerInputLoader(InputLoader[int]):
 
-    def __iter__(self) -> Iterable[int]:
-        return self
-
-    def __next__(self) -> int:
-        return super().__next__()
-
     def process_line(self, line: str) -> int:
         return int(super().process_line(line))
+
+
+class MovementCommandInputLoader(InputLoader[MovementCommand]):
+
+    def process_line(self, line: str) -> MovementCommand:
+        return MovementCommand.parse(super().process_line(line))
