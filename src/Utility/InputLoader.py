@@ -10,8 +10,9 @@ T = TypeVar('T')
 
 class InputLoader(Iterator[T], Generic[T]):
 
-    def __init__(self, day: int):
+    def __init__(self, day: int, sample: bool = False):
         self.day = day
+        self.sample = sample
         self._file: Optional[TextIO] = None
 
     def __iter__(self) -> Iterator[T]:
@@ -45,7 +46,8 @@ class InputLoader(Iterator[T], Generic[T]):
         self._file = None
 
     def get_filename(self, directory: str = "../../input") -> str:
-        return os.path.join(directory, f"[day{str(self.day).rjust(2, '0')}]input.txt")
+        suffix = '' if not self.sample else '-sample'
+        return os.path.join(directory, f"[day{str(self.day).rjust(2, '0')}]input{suffix}.txt")
 
     def is_open(self) -> bool:
         return self._file is not None
