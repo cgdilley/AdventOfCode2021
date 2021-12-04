@@ -10,8 +10,7 @@ class BingoBoard:
         self.height = len(values)
         self.width = len(values[0]) if self.height > 0 else 0
         self._selected: Dict[Tuple[int, int], bool] = dict()
-        self._value_map: Dict[int, Tuple[int, int]] = \
-            {value: (y, x) for y, row in enumerate(self.values) for x, value in enumerate(row)}
+        self._value_map: Dict[int, Tuple[int, int]] = {value: pos for pos, value in self.iterate()}
 
     def test_winning_move(self, position: Tuple[int, int]) -> bool:
         return all(self.is_selected((position[0], col)) for col in range(self.width)) or \
