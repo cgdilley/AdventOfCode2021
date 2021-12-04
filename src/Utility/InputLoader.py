@@ -55,6 +55,9 @@ class InputLoader(Iterator[T], Generic[T]):
     def process_line(self, line: str) -> T:
         return line.strip()
 
+    def skip_line(self) -> None:
+        _ = next(self)
+
 
 class IntegerInputLoader(InputLoader[int]):
 
