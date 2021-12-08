@@ -52,11 +52,12 @@ def process_reading(reading: Reading) -> int:
         # 3 segments that are shared as well, and these 3 segments must map to a, d, or g, and nothing else can map
         # to a, d, or g.
 
+        segments_in_common = SEGMENTS_IN_COMMON[length]
         for segment in SEGMENTS:
             if segment in segments_in_common_in_input:
-                possibilities[segment] = possibilities[segment].intersection(SEGMENTS_IN_COMMON[length])
+                possibilities[segment] = possibilities[segment].intersection(segments_in_common)
             else:
-                possibilities[segment] = possibilities[segment].difference(SEGMENTS_IN_COMMON[length])
+                possibilities[segment] = possibilities[segment].difference(segments_in_common)
 
     if not all(len(p) == 1 for p in possibilities.values()):
         raise Exception("COULD NOT SOLVE")
