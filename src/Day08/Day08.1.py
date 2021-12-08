@@ -5,7 +5,7 @@ from typing import Dict, List, Set
 
 
 with InputLoader(day=8) as reader:
-    readings = [Reading.parse(line) for line in reader]
+    readings = (Reading.parse(line) for line in reader)
 
 SEGMENTS = "abcdefg"
 
@@ -18,10 +18,7 @@ def intersections():
     segments can translate to which others.  If you do this for all possible segment totals, you'll eventually narrow
     down each segment to just one possibility, which is the correct answer.
     """
-    total = 0
-    for reading in readings:
-        result = process_reading(reading)
-        total += result
+    total = sum(process_reading(reading) for reading in readings)
     print(f"TOTAL: {total}")
 
 
@@ -49,6 +46,11 @@ def process_reading(reading: Reading) -> int:
         #
         # For example, the digit 1 uses segments "cf".  If you see a sample "ab", you know
         # a and b must map to either c or f (and nothing else), and nothing else can map to c or f.
+        #
+        # For another example, 2, 3, and 5 all have 5 segments (acdeg, acdfg, and abdfg, respectively).  They all
+        # have the segments a, d, and g in common.  That means among all the samples of length 5, there will be exactly
+        # 3 segments that are shared as well, and these 3 segments must map to a, d, or g, and nothing else can map
+        # to a, d, or g.
 
         for segment in SEGMENTS:
             if segment in segments_in_common_in_input:
