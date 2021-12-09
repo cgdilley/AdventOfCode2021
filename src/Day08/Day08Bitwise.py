@@ -30,8 +30,7 @@ def process_reading(reading: Reading) -> int:
                                                        ONES)
 
         segments_in_common = SEGMENTS_IN_COMMON[length]
-        for i in range(len(SEGMENTS)):
-            segment = 1 << i
+        for segment in possibilities.keys():
             if segment & segments_in_common_in_input != 0:
                 possibilities[segment] &= segments_in_common
             else:
