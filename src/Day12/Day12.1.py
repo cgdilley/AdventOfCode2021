@@ -20,7 +20,7 @@ def main():
 #
 
 
-def find_all_paths(system: CaveSystem) -> Iterable[Tuple[Cave]]:
+def find_all_paths(system: CaveSystem) -> Iterable[Tuple[Cave, ...]]:
     yield from _find_paths_from(system["start"], (system["start"],), 0)
 
 
