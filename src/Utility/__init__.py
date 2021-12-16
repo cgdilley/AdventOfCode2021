@@ -1,2 +1,2 @@
-from Utility.InputLoader import InputLoader, IntegerInputLoader, MovementCommandInputLoader
+from Utility.InputLoader import InputLoader, IntegerInputLoader, MovementCommandInputLoader, BytesInputLoader
 from Utility.MovementCommand import MovementCommand

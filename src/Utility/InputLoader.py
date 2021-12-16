@@ -72,3 +72,18 @@ class MovementCommandInputLoader(InputLoader[MovementCommand]):
 
     def process_line(self, line: str) -> MovementCommand:
         return MovementCommand.parse(super().process_line(line))
+
+
+class BytesInputLoader(InputLoader[bin]):
+
+    def open(self):
+        if self.is_open():
+            return
+        self._file = open(self.get_filename(), "rb")
+
+    def __next__(self) -> bin:
+        self.open()
+        b = self._file.read(1)
+        if b == b"":
+            raise StopIteration
+        return b
