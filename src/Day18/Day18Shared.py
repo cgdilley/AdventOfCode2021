@@ -50,7 +50,8 @@ class SnailPair:
 
         This is called recursively, and any remnants from a nested node's explosion are
         passed up to it's parent, which will add those remnants into the appropriate
-        neighbor values, and turn that exploded pair into a 0.
+        neighbor values, and turn that exploded pair into a 0.  Any unhandled remnants get
+        propagated upwards until they are handled, or until reaching the root node.
 
         :param depth: The current depth, for triggering explosions
         :return: Remnants remaining at this depth after any nested node that has exploded,
@@ -58,6 +59,7 @@ class SnailPair:
         """
         if depth >= EXPLOSION_DEPTH:
             return self.left, self.right
+
         if isinstance(self.left, SnailPair):
             values = self.left.do_explosions(depth + 1)
             if values is not None:
@@ -68,6 +70,7 @@ class SnailPair:
                 else:
                     self.right += values[1]
                 return values[0], 0
+
         if isinstance(self.right, SnailPair):
             values = self.right.do_explosions(depth + 1)
             if values is not None:
@@ -78,6 +81,7 @@ class SnailPair:
                 else:
                     self.left += values[0]
                 return 0, values[1]
+
         return None
 
     def do_splits(self) -> bool:

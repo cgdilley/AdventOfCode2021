@@ -9,7 +9,7 @@ def main():
         pairs = [SnailPair.parse(line) for line in reader]
 
     biggest = max((x + y).magnitude()
-                  for x in pairs for y in pairs)
+                  for x in pairs for y in pairs if x != y)
 
     print(f"LARGEST MAGNITUDE = {biggest}")
 
