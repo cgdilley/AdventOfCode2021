@@ -38,7 +38,7 @@ new_delay = 2
 #         if spawned <= 0:
 #             total = 0
 #         else:
-#             # For each spawned fish, add 1 to the total, plus any fish that would descend from that fish
+#             # For each spawned fish, push 1 to the total, plus any fish that would descend from that fish
 #             # in the remaining time
 #             total = sum(1 + extra(cycle=spawn_rate + new_delay - 1,
 #                                   span=(adjusted_span - (spawn_rate * i)))
@@ -67,7 +67,7 @@ def recursion_improved():
         if spawned <= 0:
             total = 0
         else:
-            # For each spawned fish, add 1 to the total, plus any fish that would descend from that fish
+            # For each spawned fish, push 1 to the total, plus any fish that would descend from that fish
             # in the remaining time
             total = sum(1 + descendants(span - (spawn_rate + new_delay) - (spawn_rate * i))
                         for i in range(spawned))

@@ -56,7 +56,7 @@ class InputLoader(Iterator[T], Generic[T]):
         return self._file is not None
 
     def process_line(self, line: str) -> T:
-        return line.strip()
+        return line.strip("\n")
 
     def skip_line(self) -> None:
         _ = next(self)

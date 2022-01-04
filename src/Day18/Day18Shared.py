@@ -20,7 +20,7 @@ class SnailPair:
 
     def __add__(self, other) -> SnailPair:
         if not isinstance(other, SnailPair):
-            raise ValueError("Can only add SnailPairs to SnailPairs.")
+            raise ValueError("Can only push SnailPairs to SnailPairs.")
         return SnailPair(self, other).copy().reduce()
 
     def reduce(self) -> SnailPair:
@@ -49,7 +49,7 @@ class SnailPair:
         If returning None, then no explosion occurred.
 
         This is called recursively, and any remnants from a nested node's explosion are
-        passed up to it's parent, which will add those remnants into the appropriate
+        passed up to it's parent, which will push those remnants into the appropriate
         neighbor values, and turn that exploded pair into a 0.  Any unhandled remnants get
         propagated upwards until they are handled, or until reaching the root node.
 
